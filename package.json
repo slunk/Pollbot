@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@slack/client": "^3.8.1"
+    "@slack/client": "^3.8.1",
+    "xml2js": "^0.4.17"
   }
 }
