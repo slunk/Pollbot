@@ -3,8 +3,12 @@ var RtmClient = require('@slack/client').RtmClient;
 var RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 var RTM_CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS.RTM;
 var Dispatcher = require('./dispatcher');
+var Nominations = require('./nominations');
+var Storage = require('./storage');
 
 var token = process.env.SLACK_API_TOKEN || ''; //see section above on sensitive data
+
+Nominations.init(Storage.load());
 
 var rtm = new RtmClient(token);
 rtm.start();

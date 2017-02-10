@@ -1,6 +1,7 @@
 var Constants = require('./constants');
 var Nominations = require('./nominations');
 var Strawpoll = require('./strawpoll');
+var Storage = require('./storage.js');
 
 var nomCommand = new RegExp(Constants.BOT_USER_ID + "\\s+nom\\s+(.*)");
 var createCommand = new RegExp(Constants.BOT_USER_ID + "\\s+create");
@@ -8,6 +9,7 @@ var helpCommand = new RegExp(Constants.BOT_USER_ID + "\\s+help");
 
 var nomHandler = function(message, matches, respond) {
     Nominations.addNomination(matches[1]);
+    Storage.store(Nominations.getNominations());
     respond("Okay, added!");
 };
 
@@ -20,6 +22,7 @@ var createHandler = function(message, matches, respond) {
                 respond("Poll created! Visit it here: " + Strawpoll.pollUrl(poll));
             });
         Nominations.clearNominations();
+        Storage.clear();
     } else {
         respond("Sorry, I need more than one nomination to make a poll.")
     }

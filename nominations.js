@@ -16,8 +16,13 @@ var clearNominations = function() {
     nominations = [];
 }
 
+var init = function(noms) {
+    nominations = noms;
+}
+
 module.exports = {
     addNomination: addNomination,
     getNominations: getNominations,
-    clearNominations: clearNominations
+    clearNominations: clearNominations,
+    init: init
 };
