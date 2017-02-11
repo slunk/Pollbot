@@ -16,14 +16,22 @@ var getBooks = function(query, handleResponse) {
             body += chunk;
         });
         res.on('end', function() {
-            parseString(body, function(err, result) {
-                handleResponse(result);
+            parseString(body, {
+                explicitArray: false,
+                ignoreAttrs: true
+            }, function(err, result) {
+                handleResponse(result.GoodreadsResponse.search.results.work);
             });
         });
     });
     req.end();
 };
 
+var getUrl = function(result) {
+    return "https://www.goodreads.com/book/show/" + result.best_book.id;
+};
+
 module.exports = {
-    getBooks: getBooks
+    getBooks: getBooks,
+    getUrl: getUrl
 }

@@ -1,24 +1,25 @@
-var WebClient = require('@slack/client').WebClient;
-var RtmClient = require('@slack/client').RtmClient;
-var RTM_EVENTS = require('@slack/client').RTM_EVENTS;
-var RTM_CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS.RTM;
-var Dispatcher = require('./dispatcher');
-var Nominations = require('./nominations');
-var Storage = require('./storage');
+var RtmClient = require('@slack/client').RtmClient,
+    RTM_EVENTS = require('@slack/client').RTM_EVENTS;
+    Context = require('./context/context'),
+    NOMINATIONS = Context.CHANNEL_CONTEXT_KEYS.NOMINATIONS,
+    FileStorage = require('./context/fileStorage'),
+    Dispatcher = require('./dispatch/dispatcher');
 
 var token = process.env.SLACK_API_TOKEN || ''; //see section above on sensitive data
 
-Nominations.init(Storage.load());
+Context.registerChannelObserver(FileStorage.getFileStorageObserver(NOMINATIONS));
+Context.registerChannelSupplier(FileStorage.getFileStorageSupplier(NOMINATIONS));
 
 var rtm = new RtmClient(token);
 rtm.start();
 
 rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
     try {
-        Dispatcher.handle(message.text, function(response) {
-            rtm.sendMessage(response, message.channel);
+        Dispatcher.handle(message, function(response) {
+            rtm.sendMessage("<@" + message.user + "> " + response, message.channel);
         });
     } catch (err) {
+        console.log(err.stack);
         rtm.sendMessage("Something went wrong", message.channel);
     }
 });

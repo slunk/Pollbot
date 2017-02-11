@@ -1,11 +1,9 @@
 var http = require('http');
 
-var createPoll = function(title, nominations, dataCallback) {
+var createPoll = function(title, options, dataCallback) {
     var data = JSON.stringify({
         title: title,
-        options: nominations.map(function(nomination) {
-            return nomination.title;
-        }),
+        options: options,
         multi: true
     });
     var options = {
