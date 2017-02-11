@@ -23,13 +23,13 @@ var commands = [
 ];
 
 var handle = function(message, respond) {
-    commands.forEach(function(command) {
-        var matches = command.regex.exec(message.text);
+    for (var i = 0; i < commands.length; i++) {
+        var matches = commands[i].regex.exec(message.text);
         if (matches) {
-            command.handler(message, matches, respond);
-            return;
+            commands[i].handler(message, matches, respond);
+            break;
         }
-    });
+    }
 };
 
 module.exports = {

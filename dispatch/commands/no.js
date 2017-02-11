@@ -3,7 +3,11 @@ var Command = require('./command'),
     Context = require('../../context/context'),
     USER_CONTEXT_KEYS = Context.USER_CONTEXT_KEYS,
     CHANNEL_CONTEXT_KEYS = Context.CHANNEL_CONTEXT_KEYS,
-    Goodreads = require('../../clients/goodreads');
+    Goodreads = require('../../clients/goodreads'),
+    Wrappers = require('./handlerWrappers'),
+    responseTimeGatingHandler = Wrappers.responseTimeGatingHandler,
+    dateRecordingHandler = Wrappers.dateRecordingHandler;
+
 
 var handler = function(message, matches, respond) {
     var userContext = Context.getUserContext(message.channel, message.user);
@@ -30,7 +34,7 @@ var handler = function(message, matches, respond) {
 
 module.exports = new Command(
     new RegExp("^\\s*no\\s*$", "i"),
-    handler,
+    responseTimeGatingHandler(dateRecordingHandler(handler)),
     "no",
     "answer the last question I asked"
 );

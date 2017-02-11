@@ -2,7 +2,8 @@ var Command = require('./command'),
     Constants = require('../../constants.js'),
     Context = require('../../context/context'),
     USER_CONTEXT_KEYS = Context.USER_CONTEXT_KEYS,
-    Goodreads = require('../../clients/goodreads');
+    Goodreads = require('../../clients/goodreads'),
+    dateRecordingHandler = require('./handlerWrappers').dateRecordingHandler;;
 
 var handler = function(message, matches, respond) {
     var query = matches[1];
@@ -22,7 +23,7 @@ var handler = function(message, matches, respond) {
 
 module.exports = new Command(
     new RegExp("^\\s*" + Constants.BOT_USER_ID + "\\s+nom\\s+(.*)$", "i"),
-    handler,
+    dateRecordingHandler(handler),
     "@pollbot nom <book title>",
     "add a nomination to the next poll for the current channel"
 );
