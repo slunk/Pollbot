@@ -15,7 +15,7 @@ var responseTimeGatingHandler = function(delegate) {
     return function(message, matches, respond) {
         var userContext = Context.getUserContext(message.channel, message.user);
         var lastInteractionDate = userContext.getAttribute(LAST_INTERACTION_DATE);
-        if (MAX_RESPONSE_MINUTES > new Duration(lastInteractionDate, new Date()).minutes) {
+        if (!lastInteractionDate || MAX_RESPONSE_MINUTES > new Duration(lastInteractionDate, new Date()).minutes) {
             delegate(message, matches, respond);
         }
     };

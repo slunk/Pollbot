@@ -20,7 +20,7 @@ var getBooks = function(query, handleResponse) {
                 explicitArray: false,
                 ignoreAttrs: true
             }, function(err, result) {
-                handleResponse(result.GoodreadsResponse.search.results.work);
+                handleResponse(result.GoodreadsResponse.search.results.work || []);
             });
         });
     });
