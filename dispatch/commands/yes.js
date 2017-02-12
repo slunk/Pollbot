@@ -22,7 +22,8 @@ var handler = function(message, matches, respond) {
             nominations.push({
                 query: query,
                 title: selectedResult.best_book.title,
-                link: Goodreads.getUrl(selectedResult)
+                link: Goodreads.getUrl(selectedResult),
+                user: message.user
             });
         }, []);
         respond("Great, added!");

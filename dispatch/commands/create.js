@@ -27,6 +27,6 @@ var handler = function(message, matches, respond) {
 module.exports = new Command(
     new RegExp("^\\s*" + Constants.BOT_USER_ID + "\\s+create\\s*$", "i"),
     handler,
-    "@pollbot create poll",
+    "@pollbot create",
     "create a poll from the current nominations in a channel"
 );

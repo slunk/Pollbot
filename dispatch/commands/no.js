@@ -25,6 +25,7 @@ var handler = function(message, matches, respond) {
             channelContext.updateAttribute(CHANNEL_CONTEXT_KEYS.NOMINATIONS, function(nominations) {
                 nominations.push({
                     query: query,
+                    user: message.user
                 });
             }, []);
             respond("Okay, I've added a nomination without a Goodreads link.");

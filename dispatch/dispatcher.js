@@ -4,7 +4,7 @@ var Command = require('./commands/command'),
 var helpHandler = function(message, matches, respond) {
     var toSend = "Here are the commands I support:\n";
     commands.forEach(function(command) {
-        toSend += "* \"" + command.usage + "\" (" + command.description + ")\n"
+        toSend += "\u2022 \"" + command.usage + "\" (" + command.description + ")\n"
     });
     respond(toSend);
 };
@@ -12,6 +12,7 @@ var helpHandler = function(message, matches, respond) {
 var commands = [
     require('./commands/nominate'),
     require('./commands/create'),
+    require('./commands/list'),
     require('./commands/yes'),
     require('./commands/no'),
     new Command(
