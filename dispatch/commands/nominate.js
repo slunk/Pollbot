@@ -24,7 +24,7 @@ var handler = function(message, matches, respond) {
                     user: message.user
                 });
             }, []);
-            respond("I couldn't find the book you were looking for but, I've added a nomination without a Goodreads link.");
+            respond("I couldn't find the book you were looking for, but I've added a nomination without a Goodreads link.");
         }
     });
 };
