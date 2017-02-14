@@ -5,7 +5,7 @@ var Command = require('./command'),
 
 var handler = function(message, matches, respond) {
     var channelContext = Context.getChannelContext(message.channel);
-    var nominations = channelContext.getAttribute(CHANNEL_CONTEXT_KEYS.NOMINATIONS);
+    var nominations = channelContext.getAttribute(CHANNEL_CONTEXT_KEYS.NOMINATIONS) || [];
     var toSend = "Here are the current nominations in <#" + message.channel + ">:\n";
     nominations.forEach(function(nomination) {
         var title = nomination.title || nomination.query;
